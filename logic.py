@@ -52,11 +52,6 @@ class LoginFunctions:
                     t.sleep(0.5)
                     print(".")
                 self.computer_turn(c_sym=cmp_sym)
-                if self.check_win():
-                    interface.show_congratulations()  # Show congratulations message.
-                    print(f"\n{'Computer' if turn is True else p_1}. You won the game!!")
-                    win = True  # Break out of the multiplayer game loop.
-                    self.game_board = np.array([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']])  # Reset the board.
             else:
                 usr_trn = True
                 while usr_trn:
@@ -69,18 +64,20 @@ class LoginFunctions:
                     check_validated = self.checks(pos=u_ch, sym=sym)
 
                     if check_validated:
-                        if self.check_win():
-                            interface.show_congratulations()  # Show congratulations message.
-                            print(f"\n{'Computer' if turn is True else p_1}. You won the game!!")
-                            win = True  # Break out of the multiplayer game loop.
-                            self.game_board = np.array([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']])  # Reset the board.
             
                         usr_trn = False
+
+            if self.check_win():
+                interface.show_congratulations()  # Show congratulations message.
+                print(f"\n{'Computer' if turn is True else p_1}. You won the game!!")
+                win = True  # Break out of the multiplayer game loop.
+                self.game_board = np.array([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']])  # Reset the board.
+
             turn = not turn
 
-        if self.game_board_full():
-            print("\nIt's a tie.")
-            self.game_board = np.array([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']])  # Reset the board.
+            if self.game_board_full():
+                print("\nIt's a tie.")
+                self.game_board = np.array([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']])  # Reset the board.
 
         ch_run = True
 
